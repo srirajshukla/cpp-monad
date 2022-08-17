@@ -3,3 +3,7 @@ cmake-build-debug-mingw/
 cmake-build-debug-visual-studio/
 
 
+out/
+.idea/
+.vs/
+.vscode/
