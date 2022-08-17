@@ -1,13 +1,25 @@
-#include <iostream>
 #include <fmt/format.h>
+#include <fmt/ostream.h>
+#include "WriterMonad.h"
 
-using namespace std;
+using namespace Writer;
 
 int main(){
-    fmt::print("hello, {} {}", 32, "world");
-    int x = 30;
+    auto a = NumberHolder(2);
 
-    fmt::print("{}", x);
+    auto b = runWithLogs(2, square);
+    auto c = runWithLogs(b, addOne);
+    auto d = runWithLogs(c, square);
+    auto e = runWithLogs(runWithLogs(c, square),square);
 
-    cout << "hello";
+    fmt::print("{}", e);
+
+    auto m = NumberHolder(4)
+                            .runWithLogs(square)
+                            .runWithLogs(addOne)
+                            .runWithLogs(addOne)
+                            .runWithLogs(square)
+                            .runWithLogs(into2);
+
+    fmt::print("{}", m);
 }
